@@ -1,4 +1,18 @@
-# Signa Incantata – Game Design Document
+# Signa Incantata
+
+**Juego de acción y rompecabezas con magia gestual**
+
+🎮 **Estado:** En desarrollo  
+🛠️ **Motor:** Unity  
+🎯 **Plataforma:** PC (Windows)  
+📅 **Inicio:** 2024  
+
+## Descripción
+Juego donde el jugador lanza hechizos dibujando símbolos mágicos en el aire. Cada símbolo corresponde a un tipo de magia distinta y requiere precisión y rapidez para invocar con éxito.
+
+---
+
+# Game Design Document
 
 ## 1. Resumen del Juego
 **Signa Incantata** es un juego de acción y rompecabezas en el que el jugador lanza hechizos dibujando símbolos mágicos en el aire. Cada símbolo corresponde a un tipo de magia distinta y requiere precisión y rapidez para invocar con éxito. El reto está en memorizar, ejecutar y combinar estos símbolos bajo presión.

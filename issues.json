@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Configurar repositorio del juego",
+    "body": "Crear repositorio en GitHub.\nAgregar .gitignore para Unity o Unreal.\nConfigurar README.md con nombre, descripción y objetivo del juego.",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Configurar entorno de desarrollo",
+    "body": "Instalar y configurar motor de juego (Unity/Unreal).\nInstalar extensiones necesarias.\nProbar compilación en blanco.",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Diseño inicial del juego",
+    "body": "Crear documento con mecánicas base (dibujo de símbolos para hechizos).\nListado inicial de hechizos y sus patrones.\nConcepto visual y estilo artístico.",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Configurar escena base",
+    "body": "Crear escena inicial.\nAgregar suelo básico.\nConfigurar luz y cámara principal.",
+    "labels": ["En progreso"]
+  },
+  {
+    "title": "Implementar cámara 3D",
+    "body": "Configurar cámara en tercera persona.\nSeguir al personaje.\nRotación con mouse o joystick.",
+    "labels": ["En progreso"]
+  },
+  {
+    "title": "Crear personaje jugador",
+    "body": "Modelo temporal (placeholder).\nColisionador y rigidbody.\nAnimaciones básicas (idle, caminar, correr, saltar).",
+    "labels": ["En progreso"]
+  },
+  {
+    "title": "Movimiento del personaje",
+    "body": "Teclas para avanzar, retroceder y girar.\nSistema de correr y caminar.\nSaltar con animación y física correcta.",
+    "labels": ["En progreso"]
+  },
+  {
+    "title": "Sistema de input básico",
+    "body": "Detectar teclas y clicks.\nCompatibilidad con control y teclado.",
+    "labels": ["Completado"]
+  },
+  {
+    "title": "Exportación de build de prueba",
+    "body": "Compilar versión jugable mínima.\nProbar en Windows y subir a GitHub Releases.",
+    "labels": ["Completado"]
+  },
+  {
+    "title": "Sistema de dibujo de símbolos",
+    "body": "Detectar trazos en pantalla.\nComparar con patrones predefinidos.\nActivar hechizo según precisión.",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Implementación de hechizos",
+    "body": "Hechizo de fuego (proyectil).\nHechizo de hielo (ralentizar enemigo).\nHechizo de viento (empujar objetos).",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Enemigos básicos",
+    "body": "Modelo temporal.\nPatrón de patrullaje.\nDetección del jugador y ataque.",
+    "labels": ["Backlog"]
+  },
+  {
+    "title": "Interfaz de usuario (HUD)",
+    "body": "Barra de vida.\nBarra de maná.\nIndicador de hechizo actual.",
+    "labels": ["Backlog"]
+  }
+]
