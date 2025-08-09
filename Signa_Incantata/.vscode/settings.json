@@ -51,5 +51,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Signa_Incantata.sln"
+    "dotnet.defaultSolution": "Signa_Incantata.sln",
+    "omnisharp.useGlobalMono": "never",
+    "dotnet.server.useOmnisharp": true,
+    "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": false
 }

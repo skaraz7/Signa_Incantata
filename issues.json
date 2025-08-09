@@ -7,7 +7,7 @@
   {
     "title": "Configurar entorno de desarrollo",
     "body": "Instalar y configurar motor de juego (Unity/Unreal).\nInstalar extensiones necesarias.\nProbar compilación en blanco.",
-    "labels": ["Backlog"]
+    "labels": ["Completado"]
   },
   {
     "title": "Diseño inicial del juego",
