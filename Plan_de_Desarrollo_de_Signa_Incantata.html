@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Desarrollo de Signa Incantata</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .version-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .version-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            margin: 1rem 0;
+            border: 1px solid #333;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .best-practices {
+            background: linear-gradient(135deg, #e8f5e8, #f0fff0);
+            border-left: 4px solid #28a745;
+        }
+
+        .common-errors {
+            background: linear-gradient(135deg, #ffe8e8, #fff0f0);
+            border-left: 4px solid #dc3545;
+        }
+
+        .key-tips {
+            background: linear-gradient(135deg, #fff8e1, #fffef7);
+            border-left: 4px solid #ffc107;
+        }
+
+        .practices-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .practices-list li {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .practices-list li:last-child {
+            border-bottom: none;
+        }
+
+        .practices-list strong {
+            color: #333;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .title { font-size: 2.5rem; }
+            .nav-tabs { flex-direction: column; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const sections = [
+            { id: 'best-practices', title: 'Buenas Prácticas', icon: 'fas fa-star' },
+            { id: 'overview', title: 'Resumen', icon: 'fas fa-home' },
+            { id: 'phases', title: 'Fases', icon: 'fas fa-tasks' },
+            { id: 'mechanics', title: 'Mecánicas', icon: 'fas fa-cogs' },
+            { id: 'ai', title: 'IA & Optimización', icon: 'fas fa-brain' },
+            { id: 'architecture', title: 'Arquitectura', icon: 'fas fa-code' },
+            { id: 'roadmap', title: 'Roadmap', icon: 'fas fa-calendar' }
+        ];
+
+        function App() {
+            const [activeSection, setActiveSection] = useState('best-practices');
+
+            const renderBestPractices = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-star"></i></div>
+                        Guía Profesional de Buenas Prácticas y Errores Comunes en Desarrollo de Videojuegos
+                    </h2>
+                    
+                    <div className="feature-card best-practices" style={{marginBottom: '2rem'}}>
+                        <h3>Buenas Prácticas Iniciales</h3>
+                        <ul className="practices-list">
+                            <li><strong>Define un MVP claro:</strong> antes de producir assets y programar, establece qué es lo mínimo que el juego necesita para ser jugable y cumplir su objetivo principal.</li>
+                            <li><strong>Documenta todo:</strong> usa un documento central (como este) para registrar mecánicas, referencias visuales, decisiones técnicas y cambios realizados.</li>
+                            <li><strong>Prototipado rápido:</strong> crea versiones simples de las mecánicas clave con assets temporales. El objetivo es probar la jugabilidad, no la estética.</li>
+                            <li><strong>Control de alcance:</strong> evita agregar nuevas funciones sin evaluar su impacto en tiempo, coste y complejidad.</li>
+                            <li><strong>Versionado y respaldo:</strong> usa control de versiones (Git) desde el primer día y realiza copias de seguridad regulares.</li>
+                            <li><strong>Separación de capas:</strong> organiza el proyecto en módulos (código, UI, audio, animaciones, etc.) para facilitar mantenimiento y optimización.</li>
+                        </ul>
+                    </div>
+
+                    <div className="feature-card common-errors" style={{marginBottom: '2rem'}}>
+                        <h3>Errores Comunes a Evitar</h3>
+                        <ul className="practices-list">
+                            <li><strong>Ignorar la optimización temprana:</strong> dejarla para el final suele provocar refactorizaciones costosas y pérdida de rendimiento.</li>
+                            <li><strong>Empezar por el arte final:</strong> gastar tiempo y recursos en gráficos antes de probar la mecánica base lleva a retrabajos.</li>
+                            <li><strong>Falta de control en el scope:</strong> agregar demasiadas funciones o sistemas complejos sin un plan claro suele retrasar y encarecer el proyecto.</li>
+                            <li><strong>No pensar en la escalabilidad:</strong> escribir código sin modularidad dificulta agregar nuevas funciones o realizar cambios.</li>
+                            <li><strong>Saltarse pruebas continuas:</strong> probar solo al final puede ocultar errores críticos en gameplay, rendimiento o compatibilidad.</li>
+                            <li><strong>Olvidar la documentación interna:</strong> el código sin comentarios claros y sin explicar decisiones técnicas se vuelve difícil de mantener.</li>
+                        </ul>
+                    </div>
+
+                    <div className="feature-card key-tips">
+                        <h3>Consejos Clave</h3>
+                        <ul className="practices-list">
+                            <li><strong>Itera en ciclos cortos:</strong> define metas pequeñas, pruébalas, corrige y avanza.</li>
+                            <li><strong>Prioriza la jugabilidad:</strong> un juego divertido con gráficos básicos es más valioso que uno visualmente impresionante pero aburrido.</li>
+                            <li><strong>Piensa en el rendimiento objetivo:</strong> si tu meta es 60 FPS en hardware de gama media-baja, ajusta todos los sistemas a esa referencia.</li>
+                            <li><strong>Externaliza con criterio:</strong> contrata o usa IA para tareas puntuales (arte, sonido, diálogos) cuando sea más eficiente que hacerlo internamente.</li>
+                            <li><strong>Evalúa con feedback real:</strong> muestra prototipos a personas externas al equipo para detectar fallos que el desarrollador no ve.</li>
+                        </ul>
+                        <p style={{marginTop: '1rem', fontStyle: 'italic'}}>Seguir estas prácticas desde el inicio reduce riesgos, acelera el desarrollo y asegura que cada fase del proyecto esté alineada con el objetivo final.</p>
+                    </div>
+                </div>
+            );
+
+            const renderOverview = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-gamepad"></i></div>
+                        Signa Incantata - Resumen Ejecutivo
+                    </h2>
+                    
+                    <div className="grid">
+                        <div className="feature-card">
+                            <div className="feature-title">🎮 Concepto</div>
+                            <p>RPG-acción 3D donde los hechizos se lanzan dibujando símbolos mágicos</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">⚡ Diferenciador</div>
+                            <p>Magia gestual + progresión que reduce fricción del gesto</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🖥️ Plataforma</div>
+                            <p>PC (Windows) - Steam y Steam Deck</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🎨 Arte</div>
+                            <p>Low poly estilizado + VFX mágicos legibles</p>
+                        </div>
+                    </div>
+
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-number">60</div>
+                            <div>FPS Objetivo</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">12</div>
+                            <div>Semanas MVP</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">5</div>
+                            <div>Fases</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">3</div>
+                            <div>Hechizos Base</div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderPhases = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-tasks"></i></div>
+                        Fases del Proyecto
+                    </h2>
+                    
+                    <div className="timeline">
+                        <div className="timeline-item">
+                            <h3>F1. Concepción (2-3 semanas)</h3>
+                            <p>Visión, alcance de MVP, riesgos, KPIs, referencias</p>
+                            <div className="progress-bar">
+                                <div className="progress-fill" style={{width: '100%'}}></div>
+                            </div>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>F2. Preproducción (4-6 semanas)</h3>
+                            <p>Prototipos técnicos, GDD, plan de arte, arquitectura</p>
+                            <div className="progress-bar">
+                                <div className="progress-fill" style={{width: '75%'}}></div>
+                            </div>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>F3. Producción MVP (8-12 semanas)</h3>
+                            <p>Vertical slice jugable</p>
+                            <div className="progress-bar">
+                                <div className="progress-fill" style={{width: '25%'}}></div>
+                            </div>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>F4. Acceso Anticipado (3-6 meses)</h3>
+                            <p>Contenido incremental y balance</p>
+                            <div className="progress-bar">
+                                <div className="progress-fill" style={{width: '0%'}}></div>
+                            </div>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>F5. Cierre 1.0</h3>
+                            <p>Estabilidad, performance, localización</p>
+                            <div className="progress-bar">
+                                <div className="progress-fill" style={{width: '0%'}}></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderMechanics = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-magic"></i></div>
+                        Sistema de Hechizos
+                    </h2>
+                    
+                    <p>Magia gestual → reconocimiento → mapeo a hechizo → ejecución</p>
+                    
+                    <div className="code-block">
+{`{
+  "id": "fireball_t1",
+  "nombre": "Bola de Fuego",
+  "gesto": "circulo",
+  "costeMana": 20,
+  "cooldown": 3.0,
+  "daño": 30,
+  "escalaCon": ["Potencia"],
+  "autocompletadoRequerido": 0,
+  "vfx": "VFX/Fireball_A",
+  "sfx": "SFX/Fireball_Cast"
+}`}
+                    </div>
+
+                    <div className="grid">
+                        <div className="feature-card">
+                            <div className="feature-title">🔥 Fireball</div>
+                            <p>Proyectil básico de fuego - Gesto: Círculo</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">❄️ Frost</div>
+                            <p>Hechizo de hielo que ralentiza - Gesto: Línea</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🛡️ Shield</div>
+                            <p>Escudo protector temporal - Gesto: Triángulo</p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderAI = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-brain"></i></div>
+                        IA y Filosofía de Optimización
+                    </h2>
+                    
+                    <div className="feature-card" style={{marginBottom: '2rem'}}>
+                        <div className="feature-title">🚀 Optimización desde el Comienzo</div>
+                        <p>Estrategia de optimización temprana para mantener 60 FPS, 1080p en preset bajo desde la primera línea de código.</p>
+                    </div>
+
+                    <h3>Principios Clave</h3>
+                    <div className="grid">
+                        <div className="feature-card">
+                            <div className="feature-title">💻 Código Eficiente</div>
+                            <p>Lógica optimizada, eventos sobre chequeos constantes, cache de referencias</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🎨 Assets Optimizados</div>
+                            <p>Modelos low-poly, texturas comprimidas, LODs desde versiones temporales</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">⚙️ Configuración Base</div>
+                            <p>Físicas, renderizado y procesamiento ajustados para reducir cargas</p>
+                        </div>
+                    </div>
+
+                    <h3>IA en el Proceso</h3>
+                    <div className="grid">
+                        <div className="feature-card">
+                            <div className="feature-title">🤖 Generación de Código</div>
+                            <p>Código optimizado desde el inicio, evitando patrones que degraden rendimiento</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🔄 Análisis Iterativo</div>
+                            <p>Refactorización automática para mantener rendimiento estable</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🛠️ Herramientas IA</div>
+                            <p>Pipelines automáticos para generación y optimización de assets</p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderArchitecture = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-code"></i></div>
+                        Arquitectura Técnica
+                    </h2>
+                    
+                    <div className="feature-card" style={{marginBottom: '2rem'}}>
+                        <div className="feature-title">🎯 Unity 2022.3 LTS - Code-First</div>
+                        <p>Generación por código de escena, player, cámara, enemigos, HUD. Datos en JSON/YAML.</p>
+                    </div>
+
+                    <div className="grid">
+                        <div className="feature-card">
+                            <div className="feature-title">🎮 Input System</div>
+                            <p>Captura de gestos y controles</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🧠 Gesture Recognition</div>
+                            <p>Reconocimiento de símbolos mágicos</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">⚔️ Combat System</div>
+                            <p>Lógica de combate y hechizos</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">👾 Enemy AI</div>
+                            <p>FSM simple con parámetros JSON</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">💾 Save System</div>
+                            <p>Guardado JSON simple</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-title">🎵 Audio/VFX</div>
+                            <p>Service Locator pattern</p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderRoadmap = () => (
+                <div className="content-card">
+                    <h2 className="section-title">
+                        <div className="section-icon"><i className="fas fa-calendar"></i></div>
+                        Roadmap MVP (12 semanas)
+                    </h2>
+                    
+                    <div className="timeline">
+                        <div className="timeline-item">
+                            <h3>Semanas 1-2: Fundación</h3>
+                            <p>Proyecto, Input, Cámara, Player, captura de trazos</p>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>Semanas 3-4: Magia</h3>
+                            <p>Reconocimiento 3 gestos + 2 hechizos</p>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>Semanas 5-6: Combate</h3>
+                            <p>Enemigos + HUD</p>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>Semanas 7-8: Progresión</h3>
+                            <p>XP + guardado</p>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>Semanas 9-10: Polish</h3>
+                            <p>VFX/SFX + tutorial</p>
+                        </div>
+                        <div className="timeline-item">
+                            <h3>Semanas 11-12: Release</h3>
+                            <p>Optimización + build + trailer</p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderContent = () => {
+                switch(activeSection) {
+                    case 'best-practices': return renderBestPractices();
+                    case 'overview': return renderOverview();
+                    case 'phases': return renderPhases();
+                    case 'mechanics': return renderMechanics();
+                    case 'ai': return renderAI();
+                    case 'architecture': return renderArchitecture();
+                    case 'roadmap': return renderRoadmap();
+                    default: return renderBestPractices();
+                }
+            };
+
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1 className="title">Plan de Desarrollo de Signa Incantata</h1>
+                        <p className="subtitle">Juego de acción y rompecabezas con magia gestual</p>
+                        <div className="version-info">
+                            <span className="version-badge">Versión 0.2</span>
+                            <span className="version-badge">2025-01-15</span>
+                            <span className="version-badge">Documento Vivo</span>
+                        </div>
+                    </div>
+
+                    <div className="nav-tabs">
+                        {sections.map(section => (
+                            <button
+                                key={section.id}
+                                className={`nav-tab ${activeSection === section.id ? 'active' : ''}`}
+                                onClick={() => setActiveSection(section.id)}
+                            >
+                                <i className={section.icon}></i> {section.title}
+                            </button>
+                        ))}
+                    </div>
+
+                    {renderContent()}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
